@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Portal Acadêmico - Estácio</title>
+    <style>
+        body { background-color: #0a0e14; color: #e6e6e6; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background-color: #161b22; padding: 40px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.8); width: 320px; border: 1px solid #30363d; text-align: center; }
+        .logo-estacio { width: 120px; height: auto; margin-bottom: 20px; }
+        h2 { color: #ffffff; font-weight: 300; margin-bottom: 25px; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; background-color: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: white; box-sizing: border-box; }
+        .btn-principal { width: 100%; padding: 12px; background-color: #238636; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .btn-reset { background: none; border: none; color: #8b949e; cursor: pointer; margin-top: 15px; text-decoration: underline; font-size: 0.8rem; }
+        #display-resultado { margin-top: 20px; padding-top: 15px; border-top: 1px solid #30363d; }
+        .status-aprovado { color: #3fb950; }
+        .status-reprovado { color: #f85149; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="Estácio" class="logo-estacio">
+        <h2>Gestão Acadêmica</h2>
+        <input type="text" id="campoNome" placeholder="Nome do Aluno">
+        <input type="number" id="notaAV" placeholder="Nota AV">
+        <input type="number" id="notaAVS" placeholder="Nota AVS">
+        <button class="btn-principal" onclick="processar()">CALCULAR</button>
+        <button class="btn-reset" onclick="limpar()">Limpar Dados</button>
+        <div id="display-resultado"></div>
+    </div>
+    <script>
+        function processar() {
+            const nome = document.getElementById('campoNome').value;
+            const av = parseFloat(document.getElementById('notaAV').value);
+            const avs = parseFloat(document.getElementById('notaAVS').value);
+            const res = document.getElementById('display-resultado');
+            if (!nome || isNaN(av) || isNaN(avs)) return alert("Preencha tudo!");
+            const media = (av + avs) / 2;
+            const classe = media >= 6 ? "status-aprovado" : "status-reprovado";
+            res.innerHTML = `Aluno: ${nome}<br>Média: <b>${media.toFixed(1)}</b><br><span class="${classe}">${media >= 6 ? 'APROVADO' : 'RECUPERAÇÃO'}</span>`;
+        }
+        function limpar() {
+            document.getElementById('campoNome').value = "";
+            document.getElementById('notaAV').value = "";
+            document.getElementById('notaAVS').value = "";
+            document.getElementById('display-resultado').innerHTML = "";
+        }
+    </script>
+</body>
+</html>
